@@ -142,6 +142,50 @@ main ul li {
   margin-left: 0;
 }
 
+
+#rsvpCode {
+  font-size: 1em;
+  font-family: Libre Baskerville;
+}
+
+#rsvpContinue {
+  font-size:1em;
+  margin:20px;
+  font-family: Libre Baskerville;
+}
+
+form input[type=checkbox] {
+  transform: scale(1.5) !important;
+  margin-right: 7px;
+  position:relative;
+  z-index: -3 !important;
+}
+
+form {
+  z-index: -3 !important;
+}
+
+.custom-controls, .custom-group {
+  margin: 1.5em 0 0 13em !important;
+}
+
+@media only screen and (max-width: 480px)
+{
+  .custom-controls, .custom-group {
+    margin-bottom:1.5em !important;
+    margin-left:2em !important;
+  }
+}
+
+.pure-control-group {
+  margin: 1.5em !important;
+}
+
+fieldset > legend {
+  color:#e2e8f0 !important;
+  margin-bottom:1em;
+}
+
 footer {
   background-color: #0a2829;
   text-align: center;

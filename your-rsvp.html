@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solange & Mark</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@300;400;500&amp;display=swap" media="all">
+    <link rel="stylesheet" href="site.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+        integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="container nav-container">
+            <input class="checkbox" type="checkbox" name="" id="" />
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <div class="logo">
+            </div>
+            <div class="menu-items">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="our-story.html">Our Story</a></li>
+                <li><a href="faq.html">Q + A</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="todo.html">Things To Do</a></li>
+                <li><a href="rsvp.html" class="current-link">RSVP</a></li>
+            </div>
+        </div>
+    </div>
+    <header style="margin-bottom:-300px;">
+        <div id="mountain"></div>
+    </header>
+    <nav>
+        <div id="nav-container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="our-story.html">Our Story</a></li>
+                <li><a href="faq.html">Q + A</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="todo.html">Things To Do</a></li>
+                <li><a href="rsvp.html" class="current-link">RSVP</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <form class="form-custom pure-form pure-form-aligned">
+            <fieldset>
+                <legend>RSVP for {Person} <small>*That's just you! Update guests in the entrees section.</small></legend>
+                <div class="custom-controls pure-controls">
+                    <label for="going">
+                        <input type="checkbox" id="going" /> I'm going!
+                    </label>
+                </div>
+                <div class="custom-group pure-control-group">
+                    <label for="arrival">I'm arriving on</label>
+                    <input type="date" id="arrival" />
+                </div>
+                <div class="custom-controls pure-controls">
+                    <label for="ride">
+                        <input type="checkbox" id="ride" /> I need a ride.
+                    </label>
+                </div>
+                <div class="custom-group pure-control-group">
+                    <label for="stay">I'm staying at</label>
+                    <input type="text" id="stay" placeholder="A quiet place" />
+                </div>
+                <legend>Vote on entrees</legend>
+                <small>You can have up to {X} guests in your party. Leave the name blank for any guest(s) not coming.</small>
+                <div class="custom-group pure-control-group">
+                    <label for="entrees_1">Choose an entree for yourself</label>
+                    <select name="entrees_1" id="entrees_1">
+                        <option value="noselection">Select entree #1</option>
+                        <option value="salmon">Salmon</option>
+                        <option value="beef">Beef</option>
+                        <option value="ravioli">Vegetarian Ravioli</option>
+                        <option value="quinoa">Vegan Quinoa</option>
+                    </select>
+                </div>
+                <div class="custom-group pure-control-group">
+                    <label for="guest_2">Choose an entree for</label>
+                    <input type="text" id="guest_2" placeholder="Name" />
+                    <label for="entrees_2">Entree #2</label>
+                    <select name="entrees_2" id="entrees_2">
+                        <option value="noselection">Select entree #2</option>
+                        <option value="salmon">Salmon</option>
+                        <option value="beef">Beef</option>
+                        <option value="ravioli">Vegetarian Ravioli</option>
+                        <option value="quinoa">Vegan Quinoa</option>
+                    </select>
+                </div>
+                <div class="custom-group pure-control-group">
+                    <label for="guest_3">Choose an entree for</label>
+                    <input type="text" id="guest_3" placeholder="Name" />
+                    <label for="entrees_3">Entree #3</label>
+                    <select name="entrees_3" id="entrees_3">
+                        <option value="noselection">Select entree #3</option>
+                        <option value="salmon">Salmon</option>
+                        <option value="beef">Beef</option>
+                        <option value="ravioli">Vegetarian Ravioli</option>
+                        <option value="quinoa">Vegan Quinoa</option>
+                    </select>
+                </div>
+                <legend>Almost done</legend>
+                <div class="custom-group pure-control-group">
+                    <label for="mail">I want a physical invite mailed to</label>
+                    <input type="text" id="mail" placeholder="My place" />
+                </div>
+                <div class="custom-group pure-control-group">
+                    <label for="song">I want the DJ to play</label>
+                    <input type="text" id="song" placeholder="Silver Line by Sheer Mag" />
+                </div>
+                BTW, you may know {Person} and can reach out to them if you want to coordinate travel / lodging together.
+                <div class="custom-controls pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">Save my changes</button>
+                </div>
+                <br>
+                Questions? Ask me or Solange on FB/IG/email.
+            </fieldset>
+        </form>
+    </main>
+    <footer>
+        No copyright 🙂
+    </footer>
+    <script src="site.js"></script>
+    <script>
+    
+    
+    </script>
+</body>
+
+</html>
