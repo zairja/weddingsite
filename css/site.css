@@ -16,7 +16,7 @@ header {
 }
 
 #mountain {
-  background-image: url("images/mountain.png");
+  background-image: url("../images/mountain.png");
   background-position-y: -100px;
   background-position-x: 50%;
   background-size: auto 500px;
