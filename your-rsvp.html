@@ -6,7 +6,7 @@
     <title>Solange & Mark</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@300;400;500&amp;display=swap" media="all">
-    <link rel="stylesheet" href="site.css">
+    <link rel="stylesheet" href="css/site.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
         integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
 </head>
@@ -37,7 +37,7 @@
         <div id="mountain"></div>
     </header>
     <nav>
-        <div id="nav-container">
+        <div id="nav-container" style="margin-top:40px">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="our-story.html">Our Story</a></li>
@@ -49,9 +49,12 @@
         </div>
     </nav>
     <main>
-        <form class="form-custom pure-form pure-form-aligned">
+        <div id="message" style="text-align:center"></div>
+        <form id="rsvpform" style="display:none" class="form-custom pure-form pure-form-aligned">
             <fieldset>
-                <legend>RSVP for {Person} <small>*That's just you! Update guests in the entrees section.</small></legend>
+                <legend>RSVP for <span class="name"></span> <small>*That's just you! Update guests in the entrees
+                        section.</small>
+                </legend>
                 <div class="custom-controls pure-controls">
                     <label for="going">
                         <input type="checkbox" id="going" /> I'm going!
@@ -61,17 +64,13 @@
                     <label for="arrival">I'm arriving on</label>
                     <input type="date" id="arrival" />
                 </div>
-                <div class="custom-controls pure-controls">
-                    <label for="ride">
-                        <input type="checkbox" id="ride" /> I need a ride.
-                    </label>
-                </div>
                 <div class="custom-group pure-control-group">
                     <label for="stay">I'm staying at</label>
                     <input type="text" id="stay" placeholder="A quiet place" />
                 </div>
                 <legend>Vote on entrees</legend>
-                <small>You can have up to {X} guests in your party. Leave the name blank for any guest(s) not coming.</small>
+                <small>You can have up to {X} guests in your party. Leave the name blank for any guest(s) not
+                    coming.</small>
                 <div class="custom-group pure-control-group">
                     <label for="entrees_1">Choose an entree for yourself</label>
                     <select name="entrees_1" id="entrees_1">
@@ -115,7 +114,8 @@
                     <label for="song">I want the DJ to play</label>
                     <input type="text" id="song" placeholder="Silver Line by Sheer Mag" />
                 </div>
-                BTW, you may know {Person} and can reach out to them if you want to coordinate travel / lodging together.
+                BTW, you may know {Person} and can reach out to them if you want to coordinate travel / lodging
+                together.
                 <div class="custom-controls pure-controls">
                     <button type="submit" class="pure-button pure-button-primary">Save my changes</button>
                 </div>
@@ -123,14 +123,48 @@
                 Questions? Ask me or Solange on FB/IG/email.
             </fieldset>
         </form>
+
+        <pre class="data">
+
+        </pre>
     </main>
     <footer>
         No copyright 🙂
     </footer>
-    <script src="site.js"></script>
+    
     <script>
-    
-    
+        // main function that loads the form once the page is ready
+        (async function () {
+            const params = new Proxy(new URLSearchParams(window.location.search), {
+                get: (searchParams, prop) => searchParams.get(prop),
+            });
+            let value = params.code;
+            const res = await fetch('/.netlify/functions/get-rsvp?code=' + value)
+                .then(response => response.json())
+                .then(data => {
+                    if (data["message"] != null) {
+                        hideForm(data["message"]);
+                    }
+                    else {
+                        loadFormValues(data);
+                    }
+
+                });
+        })();
+
+        function hideForm(message) {
+            document.getElementById("rsvpform").remove();
+            document.getElementById("message").innerText = message;
+        }
+
+        function loadFormValues(data) {
+            
+            var nameElements = document.getElementsByClassName('name');
+                        for (var i = 0; i < nameElements.length; i++) {
+                            nameElements[i].innerHTML = data["name"];
+                        }
+            document.getElementById("rsvpform").style.display = "block";
+        }
     </script>
 </body>
 

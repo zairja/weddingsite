@@ -9,7 +9,7 @@
     crossorigin="anonymous" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@300;400;500&amp;display=swap" media="all">
-  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="css/site.css">
 </head>
 
 <body>
@@ -61,14 +61,19 @@
       <p style="text-align:center">
         Enter your RSVP code<br>
         <input type="text" class="rsvp" id="rsvpCode"><br>
-        <input type="submit" class="rsvp" id="rsvpContinue" value="Continue">
+        <input type="submit" class="rsvp" id="rsvpContinue" OnClick="setUrl(); return false;" value="Continue">
       </p>
     </form>
   </main>
   <footer>
     No copyright 🙂
   </footer>
-  <script src="site.js"></script>
+  <script src="js/site.js"></script>
+  <script type="text/javascript">
+    function setUrl() {
+        window.location.href = 'your-rsvp.html?code=' + document.getElementById('rsvpCode').value;
+    };
+    </script>
 </body>
 
 </html>

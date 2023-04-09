@@ -1,0 +1,4 @@
+.env
+node_modules/*
+.netlify/edge-functions-import-map.json
+.netlify/state.json

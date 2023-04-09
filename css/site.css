@@ -1,0 +1,370 @@
+body {
+  margin: 0 auto;
+  font-family: Libre Baskerville;
+  background-color: #0a2829;
+  color: #fff;
+
+}
+
+
+header {
+  display: inline-flexbox;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+}
+
+#mountain {
+  background-image: url("images/mountain.png");
+  background-position-y: -100px;
+  background-position-x: 50%;
+  background-size: auto 500px;
+  background-repeat: no-repeat;
+  height: 500px;
+}
+
+#header-couple {
+  font-size: 44px;
+  line-height: 60px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  margin: 32px;
+  margin-top: -200px;
+
+}
+
+#header-date-location {
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  line-height: 25px;
+  margin: 16px;
+}
+
+#header-countdown {
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  line-height: 19px;
+  margin: 8px;
+}
+
+nav {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 50px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  text-align: center;
+}
+
+nav li {
+  margin-right: 20px;
+  margin-left: 20px;
+  display: inline-block;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 14px;
+  letter-spacing: 2px;
+  padding: 8px 8px 6px;
+  transition: all .5s;
+  border: solid 2px transparent;
+}
+
+nav a:hover {
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.current-link {
+  border-bottom: 2px solid #ffffff !important;
+}
+
+#nav-container {
+  display: none;
+}
+
+
+h1 {
+  font-size:1.8em;
+  margin: 4px 0px;
+}
+
+h2 {
+  margin: 0;
+}
+
+main {
+  margin-top:50px;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 20px;
+  line-height: 2em;
+  text-align: left;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+main p {
+  margin-bottom: 3em;
+}
+
+main a {
+  text-decoration: underline;
+  text-decoration-color: #e2e8f0;
+  color: #fff;
+}
+
+main ul {
+  margin-inline-start: 0;
+  margin-left: 0;
+  margin-bottom: 3em;
+  padding-left: 1em;
+}
+
+main ul li {
+  margin-left: 0;
+}
+
+
+#rsvpCode {
+  font-size: 1em;
+  font-family: Libre Baskerville;
+}
+
+#rsvpContinue {
+  font-size:1em;
+  margin:20px;
+  font-family: Libre Baskerville;
+}
+
+form input[type=checkbox] {
+  transform: scale(1.5) !important;
+  margin-right: 7px;
+  position:relative;
+  z-index: -3 !important;
+}
+
+form {
+  z-index: -3 !important;
+}
+
+.custom-controls, .custom-group {
+  margin: 1.5em 0 0 13em !important;
+}
+
+@media only screen and (max-width: 480px)
+{
+  .custom-controls, .custom-group {
+    margin-bottom:1.5em !important;
+    margin-left:2em !important;
+  }
+}
+
+.pure-control-group {
+  margin: 1.5em !important;
+}
+
+fieldset > legend {
+  color:#e2e8f0 !important;
+  margin-bottom:1em;
+}
+
+footer {
+  background-color: #0a2829;
+  text-align: center;
+  padding: 10px;
+}
+
+
+@media (min-width: 990px) {
+  #nav-container {
+    display: flex;
+  }
+
+  
+#header-couple {
+  font-size: 52px;
+  line-height: 65px;
+}
+
+  .navbar {
+    display: none;
+  }
+
+  nav {
+    display: flex;
+  }
+
+  main {
+     margin-top:0px !important;
+     padding-left: 20% !important;
+     padding-right: 20% !important;
+  }
+}
+
+/**********/
+
+.container {
+  max-width: 1050px;
+  width: 95%;
+  margin: auto;
+}
+
+.navbar {
+ position:sticky;
+  width: 100%;
+  top:0;
+  background-color: #0a2829;
+  box-shadow: 0 1px 4px rgb(146 161 176 / 15%);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 62px;
+}
+
+.navbar .menu-items {
+  display: flex;
+}
+
+.navbar .nav-container li {
+  list-style: none;
+}
+
+.navbar .nav-container a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 2px;
+  padding: 8px 8px 6px;
+  transition: all .5s;
+  border: solid 2px transparent;
+}
+
+.navbar .nav-container a:hover {
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.nav-container {
+  display: block;
+  position: relative;
+  height: 60px;
+}
+
+.nav-container .checkbox {
+  position: absolute;
+  display: block;
+  height: 32px;
+  width: 32px;
+  top: 20px;
+  left: 20px;
+  z-index: 5;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.nav-container .hamburger-lines {
+  display: block;
+  height: 26px;
+  width: 32px;
+  position: absolute;
+  top: 17px;
+  left: 20px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nav-container .hamburger-lines .line {
+  display: block;
+  height: 4px;
+  width: 100%;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.nav-container .hamburger-lines .line1 {
+  transform-origin: 0% 0%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.nav-container .hamburger-lines .line2 {
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-container .hamburger-lines .line3 {
+  transform-origin: 0% 100%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.navbar .menu-items {
+  padding-top: 120px;
+  background-color: #0a2829;
+  height: 100vh;
+  width: 100%;
+  transform: translate(-150%);
+  display: flex;
+  flex-direction: column;
+  margin-left: -40px;
+  padding-left: 50px;
+  transition: transform 0.5s ease-in-out;
+  text-align: center;
+}
+
+.navbar .menu-items li {
+  margin-bottom: 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.logo {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.nav-container input[type="checkbox"]:checked~.menu-items {
+  transform: translateX(0);
+}
+
+.nav-container input[type="checkbox"]:checked~.hamburger-lines .line1 {
+  transform: rotate(45deg);
+}
+
+.nav-container input[type="checkbox"]:checked~.hamburger-lines .line2 {
+  transform: scaleY(0);
+}
+
+.nav-container input[type="checkbox"]:checked~.hamburger-lines .line3 {
+  transform: rotate(-45deg);
+}
+
+.nav-container input[type="checkbox"]:checked~.logo {
+  display: none;
+}
