@@ -16,7 +16,7 @@ exports.handler = async (event) => {
   }
 
   const doesDocExist = await client.query(
-    q.Exists(q.Match(q.Index('guest_by_code'), code))
+    q.Exists(q.Match(q.Index('guest_by_code'), code.toLowerCase()))
   );
 
   if (!doesDocExist) {
@@ -29,7 +29,7 @@ exports.handler = async (event) => {
   }
 
   const document = await client.query(
-    q.Get(q.Match(q.Index('guest_by_code'), code))
+    q.Get(q.Match(q.Index('guest_by_code'), code.toLowerCase()))
   );
 
   return {

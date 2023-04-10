@@ -17,7 +17,7 @@ exports.handler = async (event, context) => {
   }
 
   const doesDocExist = await client.query(
-    q.Exists(q.Match(q.Index('guest_by_code'), eventBody.code))
+    q.Exists(q.Match(q.Index('guest_by_code'), eventBody.code.toLowerCase()))
   );
 
   if (!doesDocExist) {
@@ -30,7 +30,7 @@ exports.handler = async (event, context) => {
   }
 
   const document = await client.query(
-    q.Get(q.Match(q.Index('guest_by_code'), eventBody.code))
+    q.Get(q.Match(q.Index('guest_by_code'), eventBody.code.toLowerCase()))
   );
 
   // add 'simple' form data to the object we'll use to update the document
