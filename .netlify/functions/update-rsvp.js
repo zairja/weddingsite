@@ -1,11 +1,20 @@
 const faunadb = require('faunadb');
-exports.handler = async (event) => {
+exports.handler = async (event, context) => {
   const q = faunadb.query;
   const client = new faunadb.Client({
     secret: process.env.FAUNA_SECRET_KEY,
   });
 
-  const { code } = event.queryStringParameters;
+  console.log(event.body);
+
+  const eventBody = JSON.parse(event.body);
+
+  console.log(eventBody)
+
+  const code = eventBody.code;
+
+  console.log(code)
+
   if (!code) {
     return {
       statusCode: 400,
@@ -37,7 +46,7 @@ exports.handler = async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      name: document.data.name,
+      message: "Your RSVP was updated!"
     }),
   };
 };

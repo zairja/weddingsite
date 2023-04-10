@@ -50,28 +50,30 @@
     </nav>
     <main>
         <div id="message" style="text-align:center"></div>
-        <form id="rsvpform" style="display:none" class="form-custom pure-form pure-form-aligned">
+        <form id="rsvpform" style="display:none" 
+            class="form-custom pure-form pure-form-aligned">
             <fieldset>
-                <legend>RSVP for <span class="name"></span> <small>*That's just you! Update guests in the entrees
+                <legend>RSVP for <span class="name"></span>&emsp;<small>*That's just you! Update guests in the entrees
                         section.</small>
                 </legend>
                 <div class="custom-controls pure-controls">
-                    <label for="going">
-                        <input type="checkbox" id="going" /> I'm going!
+                    <label for="isGoing">
+                        <input type="checkbox" id="isGoing" name="isGoing" /> I'm going!
                     </label>
                 </div>
                 <div class="custom-group pure-control-group">
-                    <label for="arrival">I'm arriving on</label>
-                    <input type="date" id="arrival" />
+                    <label for="arrivalDate">I'm arriving on</label>
+                    <input type="date" id="arrivalDate" name="arrivalDate" />
                 </div>
                 <div class="custom-group pure-control-group">
-                    <label for="stay">I'm staying at</label>
-                    <input type="text" id="stay" placeholder="A quiet place" />
+                    <label for="stayLocation">I'm staying at</label>
+                    <input type="text" id="stayLocation" name="stayLocation" placeholder="A quiet place" />
                 </div>
                 <legend>Vote on entrees</legend>
-                <small>You can have up to {X} guests in your party. Leave the name blank for any guest(s) not
+                <small>You can have up to <span id="maxGuests"></span> in your party. Leave the name blank for any
+                    guest(s) not
                     coming.</small>
-                <div class="custom-group pure-control-group">
+                <div class="custom-group pure-control-group" id="self-entree">
                     <label for="entrees_1">Choose an entree for yourself</label>
                     <select name="entrees_1" id="entrees_1">
                         <option value="noselection">Select entree #1</option>
@@ -81,57 +83,33 @@
                         <option value="quinoa">Vegan Quinoa</option>
                     </select>
                 </div>
-                <div class="custom-group pure-control-group">
-                    <label for="guest_2">Choose an entree for</label>
-                    <input type="text" id="guest_2" placeholder="Name" />
-                    <label for="entrees_2">Entree #2</label>
-                    <select name="entrees_2" id="entrees_2">
-                        <option value="noselection">Select entree #2</option>
-                        <option value="salmon">Salmon</option>
-                        <option value="beef">Beef</option>
-                        <option value="ravioli">Vegetarian Ravioli</option>
-                        <option value="quinoa">Vegan Quinoa</option>
-                    </select>
-                </div>
-                <div class="custom-group pure-control-group">
-                    <label for="guest_3">Choose an entree for</label>
-                    <input type="text" id="guest_3" placeholder="Name" />
-                    <label for="entrees_3">Entree #3</label>
-                    <select name="entrees_3" id="entrees_3">
-                        <option value="noselection">Select entree #3</option>
-                        <option value="salmon">Salmon</option>
-                        <option value="beef">Beef</option>
-                        <option value="ravioli">Vegetarian Ravioli</option>
-                        <option value="quinoa">Vegan Quinoa</option>
-                    </select>
-                </div>
                 <legend>Almost done</legend>
                 <div class="custom-group pure-control-group">
-                    <label for="mail">I want a physical invite mailed to</label>
-                    <input type="text" id="mail" placeholder="My place" />
+                    <label for="mailingAddress">I want a physical invite mailed to</label>
+                    <input type="text" id="mailingAddress" name="mailingAddress" placeholder="My place" />
                 </div>
                 <div class="custom-group pure-control-group">
                     <label for="song">I want the DJ to play</label>
-                    <input type="text" id="song" placeholder="Silver Line by Sheer Mag" />
+                    <input type="text" id="song" name="song" placeholder="Silver Line by Sheer Mag" />
                 </div>
-                BTW, you may know {Person} and can reach out to them if you want to coordinate travel / lodging
-                together.
+                <span id="related" style="display:none">BTW, you may know {Person} and can reach out to them if you want
+                    to coordinate travel / lodging
+                    together.</span>
                 <div class="custom-controls pure-controls">
-                    <button type="submit" class="pure-button pure-button-primary">Save my changes</button>
+                    <button type="submit" id="btnSave" class="pure-button pure-button-primary">Save my
+                        changes</button>
                 </div>
                 <br>
                 Questions? Ask me or Solange on FB/IG/email.
+                <input type="hidden" id="code" name="code">
             </fieldset>
         </form>
 
-        <pre class="data">
-
-        </pre>
     </main>
     <footer>
         No copyright 🙂
     </footer>
-    
+
     <script>
         // main function that loads the form once the page is ready
         (async function () {
@@ -140,16 +118,15 @@
             });
             let value = params.code;
             const res = await fetch('/.netlify/functions/get-rsvp?code=' + value)
-                .then(response => response.json())
-                .then(data => {
-                    if (data["message"] != null) {
-                        hideForm(data["message"]);
-                    }
-                    else {
-                        loadFormValues(data);
-                    }
+            const data = await res.json();
+            console.log(data);
+            if (data["message"] != null) {
+                hideForm(data["message"]);
+            }
+            else {
+                loadFormValues(data);
+            }
 
-                });
         })();
 
         function hideForm(message) {
@@ -157,14 +134,122 @@
             document.getElementById("message").innerText = message;
         }
 
-        function loadFormValues(data) {
-            
+        function setNameText(data) {
             var nameElements = document.getElementsByClassName('name');
-                        for (var i = 0; i < nameElements.length; i++) {
-                            nameElements[i].innerHTML = data["name"];
-                        }
+            for (var i = 0; i < nameElements.length; i++) {
+                nameElements[i].innerHTML = data["name"];
+            }
+        }
+
+        function initGuests(data) {
+
+            // text for maximum # of guests
+            if (data["maxGuests"] == null || data["maxGuests"] < 0)
+                data["maxGuests"] = 0;
+
+            if (data["maxGuests"] != 1)
+                document.getElementById("maxGuests").innerText = data["maxGuests"] + " guests";
+            else
+                document.getElementById("maxGuests").innerText = data["maxGuests"] + " guest";
+
+            addGuestInput(data["maxGuests"]);
+        }
+
+        function addGuestInput(maxGuests) {
+            for (var i = 0; i < maxGuests; ++i)
+                //  add 2 to iterator because guest entrees start as the 2nd entree (1st is your own)
+                var html = `<div class="custom-group pure-control-group">
+                    <label for="guest_${i + 2}">Choose an entree for</label>
+                    <input type="text" id="guest_${i + 2}" placeholder="Name" />
+                    <label for="entrees_${i + 2}">Entree #${i + 2}</label>
+                    <select name="entrees_${i + 2}" id="entrees_${i + 2}">
+                        <option value="noselection">Select entree #${i + 2}</option>
+                        <option value="salmon">Salmon</option>
+                        <option value="beef">Beef</option>
+                        <option value="ravioli">Vegetarian Ravioli</option>
+                        <option value="quinoa">Vegan Quinoa</option>
+                    </select>
+                </div>`
+            document.getElementById("self-entree").insertAdjacentHTML("afterend", html);
+        }
+
+        function loadFormValues(data) {
+
+            setNameText(data);
+            initGuests(data);
+
+            Object.entries(data).forEach(([key, value]) => {
+                var someInput = document.getElementById(key);
+                if (someInput != null) {
+                    if (key == "isGoing")
+                        someInput.checked = data[key];
+                    else
+                        someInput.value = data[key];
+                }
+
+            });
+
+
             document.getElementById("rsvpform").style.display = "block";
         }
+
+
+        /**
+ * Helper function for POSTing data as JSON with fetch.
+ *
+ * @param {Object} options
+ * @param {string} options.url - URL to POST data to
+ * @param {FormData} options.formData - `FormData` instance
+ * @return {Object} - Response body from URL that was POSTed to
+ */
+async function postFormDataAsJson({ url, formData }) {
+	const plainFormData = Object.fromEntries(formData.entries());
+	const formDataJsonString = JSON.stringify(plainFormData);
+
+	const fetchOptions = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+		body: formDataJsonString,
+	};
+
+	const response = await fetch(url, fetchOptions);
+
+	if (!response.ok) {
+		const errorMessage = await response.text();
+		throw new Error(errorMessage);
+	}
+
+	return response.json();
+}
+
+/**
+ * Event handler for a form submit event.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event
+ *
+ * @param {SubmitEvent} event
+ */
+async function handleFormSubmit(event) {
+	event.preventDefault();
+
+	const form = event.currentTarget;
+	const url = '/.netlify/functions/update-rsvp';
+
+	try {
+		const formData = new FormData(form);
+		const responseData = await postFormDataAsJson({ url, formData });
+
+		console.log({ responseData });
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+const exampleForm = document.getElementById("rsvpform");
+exampleForm.addEventListener("submit", handleFormSubmit);
     </script>
 </body>
 
