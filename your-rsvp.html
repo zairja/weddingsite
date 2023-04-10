@@ -50,10 +50,9 @@
     </nav>
     <main>
         <div id="message" style="text-align:center"></div>
-        <form id="rsvpform" style="display:none" 
-            class="form-custom pure-form pure-form-aligned">
+        <form id="rsvpform" style="display:none" class="form-custom pure-form pure-form-aligned">
             <fieldset>
-                <legend>RSVP for <span class="name"></span>&emsp;<small>*That's just you! Update guests in the entrees
+                <legend>RSVP for <span class="name"></span><br><small>*Update guests in the entrees
                         section.</small>
                 </legend>
                 <div class="custom-controls pure-controls">
@@ -107,7 +106,7 @@
 
     </main>
     <footer>
-        No copyright 🙂
+        No copyright 🙂 Made by Mark
     </footer>
 
     <script>
@@ -119,7 +118,6 @@
             let value = params.code;
             const res = await fetch('/.netlify/functions/get-rsvp?code=' + value)
             const data = await res.json();
-            console.log(data);
             if (data["message"] != null) {
                 hideForm(data["message"]);
             }
@@ -160,7 +158,7 @@
                 //  add 2 to iterator because guest entrees start as the 2nd entree (1st is your own)
                 var html = `<div class="custom-group pure-control-group">
                     <label for="guest_${i + 2}">Choose an entree for</label>
-                    <input type="text" id="guest_${i + 2}" placeholder="Name" />
+                    <input type="text" id="guest_${i + 2}" name="guest_${i + 2}" placeholder="Name" />
                     <label for="entrees_${i + 2}">Entree #${i + 2}</label>
                     <select name="entrees_${i + 2}" id="entrees_${i + 2}">
                         <option value="noselection">Select entree #${i + 2}</option>
@@ -202,54 +200,56 @@
  * @param {FormData} options.formData - `FormData` instance
  * @return {Object} - Response body from URL that was POSTed to
  */
-async function postFormDataAsJson({ url, formData }) {
-	const plainFormData = Object.fromEntries(formData.entries());
-	const formDataJsonString = JSON.stringify(plainFormData);
+        async function postFormDataAsJson({ url, formData }) {
+            const plainFormData = Object.fromEntries(formData.entries());
+            const formDataJsonString = JSON.stringify(plainFormData);
 
-	const fetchOptions = {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Accept: "application/json",
-		},
-		body: formDataJsonString,
-	};
+            const fetchOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: formDataJsonString,
+            };
 
-	const response = await fetch(url, fetchOptions);
+            const response = await fetch(url, fetchOptions);
 
-	if (!response.ok) {
-		const errorMessage = await response.text();
-		throw new Error(errorMessage);
-	}
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                throw new Error(errorMessage);
+            }
 
-	return response.json();
-}
+            return response.json();
+        }
 
-/**
- * Event handler for a form submit event.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event
- *
- * @param {SubmitEvent} event
- */
-async function handleFormSubmit(event) {
-	event.preventDefault();
+        /**
+         * Event handler for a form submit event.
+         * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event
+         * @param {SubmitEvent} event
+         */
+        async function handleFormSubmit(event) {
+            event.preventDefault();
 
-	const form = event.currentTarget;
-	const url = '/.netlify/functions/update-rsvp';
+            const form = event.currentTarget;
+            const url = '/.netlify/functions/update-rsvp';
 
-	try {
-		const formData = new FormData(form);
-		const responseData = await postFormDataAsJson({ url, formData });
+            try {
+                const formData = new FormData(form);
+                const responseData = await postFormDataAsJson({ url, formData });
+                if (responseData["message"] != null) {
+                    if (responseData["message"].includes("was updated"))
+                        document.getElementById("message").classList.add("success-alert")
+                    document.getElementById("message").innerText = responseData["message"];
+                    window.scrollTo(0, 0);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
 
-		console.log({ responseData });
-	} catch (error) {
-		console.error(error);
-	}
-}
-
-const exampleForm = document.getElementById("rsvpform");
-exampleForm.addEventListener("submit", handleFormSubmit);
+        const exampleForm = document.getElementById("rsvpform");
+        exampleForm.addEventListener("submit", handleFormSubmit);
     </script>
 </body>
 
