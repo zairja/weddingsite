@@ -155,7 +155,7 @@
         }
 
         function addGuestInput(maxGuests) {
-            for (var i = 0; i < maxGuests; ++i)
+            for (var i = maxGuests - 1; i >= 0; --i) {
                 //  add 2 to iterator because guest entrees start as the 2nd entree (1st is your own)
                 var html = `<div class="custom-group pure-control-group">
                     <label for="guest_${i + 2}">Choose an entree for</label>
@@ -169,7 +169,8 @@
                         <option value="quinoa">Vegan Quinoa</option>
                     </select>
                 </div>`
-            document.getElementById("self-entree").insertAdjacentHTML("afterend", html);
+                document.getElementById("self-entree").insertAdjacentHTML("afterend", html);
+            }
         }
 
         function loadFormValues(data) {
